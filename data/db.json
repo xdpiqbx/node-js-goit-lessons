@@ -17,6 +17,12 @@
       "name": "Lala",
       "age": 12,
       "isVaccinated": false
+    },
+    {
+      "id": "e20e59c1-d52e-4c0a-a952-57e01d81d92d",
+      "name": "Bill",
+      "age": 5,
+      "isVaccinated": true
     }
   ]
 }

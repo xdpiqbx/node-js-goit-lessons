@@ -107,6 +107,7 @@ const updateStatus = (req, res, next) => {
     next(e)
   }
 };
+
 const remove = (req, res, next) => {
   try{
     const cat = catsService.remove(req.params)
