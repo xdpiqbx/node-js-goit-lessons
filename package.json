@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node srs/app.js",
-    "dev": "nodemon srs/app.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,10 @@
   },
   "devDependencies": {
     "nodemon": "2.0.7"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "data/*.*"
+    ]
   }
 }
