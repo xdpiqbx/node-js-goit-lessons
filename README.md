@@ -42,7 +42,8 @@ npm install got@latest -E
 
 ### Ставим dotenv ["from a .env file into process.env"](https://www.npmjs.com/package/dotenv)
 
-Dotenv is a zero-dependency module that loads environment variables from a .env file into process.env (Короче грузит перепенные из файла .env в process.env )
+Dotenv is a zero-dependency module that loads environment variables from a .env file into process.env
+>(Короче грузит переменные из файла .env в process.env )
 
 ![alt dotenv](https://raw.githubusercontent.com/motdotla/dotenv/master/dotenv.png)
 
