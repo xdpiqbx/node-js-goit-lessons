@@ -61,7 +61,7 @@ const create = (req, res, next) => {
 const update = (req, res, next) => {
   try{
     const cat = catsService.update(req.params, req.body)
-    if(cat.id){
+    if(cat){
       return res.status(HttpCode.OK).json({
         status: 'success',
         code: HttpCode.OK,
