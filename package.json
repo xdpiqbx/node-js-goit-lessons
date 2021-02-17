@@ -1,0 +1,31 @@
+{
+  "name": "node-js-goit-lessons",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./bin/server.js",
+    "dev": "nodemon ./bin/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xdpiqbx/node-js-goit-lessons.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xdpiqbx/node-js-goit-lessons/issues"
+  },
+  "homepage": "https://github.com/xdpiqbx/node-js-goit-lessons#readme",
+  "dependencies": {
+    "dotenv": "8.2.0",
+    "express": "4.17.1",
+    "express-validator": "6.9.2",
+    "got": "9.6.0",
+    "morgan": "1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.7"
+  }
+}
