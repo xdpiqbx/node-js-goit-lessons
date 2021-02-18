@@ -126,11 +126,28 @@ heroku login
 heroku git:remote -a node-js-goit-lesson-03-weather
 ```
 
+Если работал в ветке то сначала pullrequest в main
+
 ```text
 git add .
 git commit -am 'heroku deploy'
-git push heroku master
+git push heroku main
 ```
+
+Установка ключа в настройках приложения на Heroku
+
+1. Settings
+2. Config Vars
+
+[Установка ключа через CLI](https://devcenter.heroku.com/articles/config-vars#managing-config-vars)
+
+```text
+heroku config:set API_KEY=7d94fde1168a4612350e24e49fcd639b
+```
+
+[node-js-goit-lesson-03-weather](https://node-js-goit-lesson-03-weather.herokuapp.com/)
+
+[/weather?lat=50.44950&lon=30.52550](https://node-js-goit-lesson-03-weather.herokuapp.com/weather?lat=50.44950&lon=30.52550)
 
 ---
 
