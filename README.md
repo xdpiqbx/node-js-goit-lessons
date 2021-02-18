@@ -109,4 +109,29 @@ app.use((err, _req, res, _next) => {
 
 ---
 
+## Деплой на [Heroku](https://www.heroku.com/):
+
+1. Регистрация
+2. Поставить [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
+
+Deploy using Heroku Git
+
+```text
+heroku login
+```
+
+Уже должен существовать .git репозиторий
+
+```text
+heroku git:remote -a node-js-goit-lesson-03-weather
+```
+
+```text
+git add .
+git commit -am 'heroku deploy'
+git push heroku master
+```
+
+---
+
 ***О себе**: "С детства с дизайном я дружу"*
