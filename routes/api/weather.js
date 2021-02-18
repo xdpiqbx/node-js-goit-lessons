@@ -5,12 +5,14 @@ const { query, validationResult } = require('express-validator');
 // GET
 //'/contact/:id' --- req.params.id
 //'/contact?skip=0&limit=10' --- req.query
+
 // POST, PUT и PATCH
 // Content-Type: application/x-www-form-urlencoded
 // для получения данных из форм --- req.body
 // предварительно -> app.use(express.urlencoded({ extended: false }))
 // false - результат парсинга будет набор пар ключ: значение ( '' || [] )
 // true - парсер использует другую библиотеку для разбора формата строки
+
 // Передача JSON тоже req.body
 // Content-Type: application/json
 // app.use(express.json())
