@@ -1,135 +1,136 @@
 const { HttpCode } = require("../helpers/constants");
 const { CatsService } = require("../services");
 
-const catsService = new CatsService()
+const catsService = new CatsService();
 
-const getAll = (req, res, next) => { // почему не пишет async ?
-  try{
-    const cats = catsService.getAll()
+const getAll = async (req, res, next) => {
+  // почему не пишет async ?
+  try {
+    const cats = await catsService.getAll();
     res.status(HttpCode.OK).json({
-      status: 'success',
+      status: "success",
       code: HttpCode.OK,
       data: {
-        cats
-      }
-    })
-  } catch(e) {
-    next(e)
+        cats,
+      },
+    });
+  } catch (e) {
+    next(e);
   }
 };
 
-const getById = (req, res, next) => {
-  try{
-    const cat = catsService.getById(req.params)
-    if(cat){
+const getById = async (req, res, next) => {
+  try {
+    const cat = await catsService.getById(req.params);
+    if (cat) {
       return res.status(HttpCode.OK).json({
-        status: 'success',
+        status: "success",
         code: HttpCode.OK,
         data: {
-          cat
-        }
-      })
-    }else{
+          cat,
+        },
+      });
+    } else {
       // пробрасываю в app -> app.use((err, req, res, next) => {....
       return next({
         status: HttpCode.NOT_FOUND,
         code: HttpCode.NOT_FOUND,
-        message: 'Cat not found',
-        data: 'Not found'
-      })
+        message: "Cat not found",
+        data: "Not found",
+      });
     }
-  } catch(e) {
-    next(e)
+  } catch (e) {
+    next(e);
   }
 };
 
-const create = (req, res, next) => {
-  try{
-    const cat = catsService.create(req.body)
+const create = async (req, res, next) => {
+  try {
+    const cat = await catsService.create(req.body);
     res.status(HttpCode.CREATED).json({
-      status: 'success',
+      status: "success",
       code: HttpCode.CREATED,
       data: {
-        cat
-      }
-    })
-  } catch(e) {
-    next(e)
+        cat,
+      },
+    });
+  } catch (e) {
+    next(e);
   }
 };
 
-const update = (req, res, next) => {
-  try{
-    const cat = catsService.update(req.params, req.body)
-    if(cat){
+const update = async (req, res, next) => {
+  try {
+    const cat = await catsService.update(req.params, req.body);
+    if (cat) {
       return res.status(HttpCode.OK).json({
-        status: 'success',
+        status: "success",
         code: HttpCode.OK,
         data: {
-          cat
-        }
-      })
-    }else{
+          cat,
+        },
+      });
+    } else {
       // пробрасываю в app -> app.use((err, req, res, next) => {....
       return next({
         status: HttpCode.NOT_FOUND,
         code: HttpCode.NOT_FOUND,
-        message: 'Cat not found',
-        data: 'Not found'
-      })
+        message: "Cat not found",
+        data: "Not found",
+      });
     }
-  } catch(e) {
-    next(e)
+  } catch (e) {
+    next(e);
   }
 };
 
-const updateStatus = (req, res, next) => {
-  try{
-    const cat = catsService.update(req.params, req.body)
-    if(cat){
+const updateStatus = async (req, res, next) => {
+  try {
+    const cat = await catsService.update(req.params, req.body);
+    if (cat) {
       return res.status(HttpCode.OK).json({
-        status: 'success',
+        status: "success",
         code: HttpCode.OK,
         data: {
-          cat
-        }
-      })
-    }else{
+          cat,
+        },
+      });
+    } else {
       // пробрасываю в app -> app.use((err, req, res, next) => {....
       return next({
         status: HttpCode.NOT_FOUND,
         code: HttpCode.NOT_FOUND,
-        message: 'Cat not found',
-        data: 'Not found'
-      })
+        message: "Cat not found",
+        data: "Not found",
+      });
     }
-  } catch(e) {
-    next(e)
+  } catch (e) {
+    next(e);
   }
 };
 
-const remove = (req, res, next) => {
-  try{
-    const cat = catsService.remove(req.params)
-    if(cat){
+const remove = async (req, res, next) => {
+  try {
+    const cat = await catsService.remove(req.params);
+    if (cat) {
       return res.status(HttpCode.OK).json({
-        status: 'success',
+        status: "success",
         code: HttpCode.OK,
         data: {
-          cat
-        }
-      })
-    }else{
+          cat,
+        },
+      });
+    } else {
       // пробрасываю в app -> app.use((err, req, res, next) => {....
       return next({
         status: HttpCode.NOT_FOUND,
         code: HttpCode.NOT_FOUND,
-        message: 'Cat not found',
-        data: 'Not found'
-      })
+        message: "Cat not found",
+        data: "Not found",
+      });
     }
-  } catch(e) {
-    next(e)
+  } catch (e) {
+    next(e);
   }
 };
 

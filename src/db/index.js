@@ -1,13 +1,18 @@
-const low = require("lowdb");
-const path = require("path");
-const FileSync = require("lowdb/adapters/FileSync");
+const MongoClient = require("mongodb").MongoClient;
+require("dotenv").config();
+const uriDb = process.env.URI_DB;
 
-const adapter = new FileSync(
-  path.join(__dirname, "..", "..", "data", "db.json")
-);
-const db = low(adapter);
+const db = new MongoClient.connect(uriDb, {
+  useUnifiedTopology: true,
+  poolSize: 5,
+  useNewUrlParser: true,
+}); // Пока в db лежит промис
 
-// Set some defaults (required if your JSON file is empty)
-db.defaults({ cats: [] }).write();
+process.on("SIGINT", async () => {
+  const client = await db;
+  client.close();
+  console.log("Connection for DB disconnected and app terminated");
+  process.exit(1);
+});
 
 module.exports = db;

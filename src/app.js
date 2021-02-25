@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const logger = require("morgan");
 const { HttpCode } = require("./helpers/constants");
 const routerCats = require("./api/cats");
 
@@ -32,7 +33,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server run on port: ${PORT}`);
-});
+module.exports = app;
