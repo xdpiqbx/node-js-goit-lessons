@@ -1,4 +1,3 @@
-const { number } = require("joi");
 const mongoose = require("mongoose");
 
 const { Schema, model } = mongoose;
@@ -24,9 +23,8 @@ const catSchema = new Schema(
       set: (data) => (!data ? [] : data),
     },
     owner: {
-      name: String,
-      age: Number,
-      addres: String,
+      type: mogoose.schemaTypes.ObjectId,
+      ref: "user",
     },
   },
   {

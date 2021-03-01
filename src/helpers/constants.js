@@ -3,7 +3,13 @@ const HttpCode = {
   CREATED: 201,
   BAD_REQUEST: 400,
   NOT_FOUND: 404,
-  INTERNAL_SERVER_ERROR: 500
-}
+  INTERNAL_SERVER_ERROR: 500,
+};
 
-module.exports = { HttpCode }
+const Sex = {
+  MALE: "m",
+  FEMALE: "f",
+  NONE: "none",
+};
+
+module.exports = { HttpCode, Sex };
