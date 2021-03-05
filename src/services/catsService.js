@@ -10,28 +10,28 @@ class CatsService {
     });
   }
 
-  getAll() {
-    return this.repo.cats.getAll();
+  getAll(userId) {
+    return this.repo.cats.getAll(userId);
   }
 
-  getById({ id }) {
-    return this.repo.cats.getById(id);
+  getById({ id }, userId) {
+    return this.repo.cats.getById(id, userId);
   }
 
   create(body) {
     return this.repo.cats.create(body);
   }
 
-  update({ id }, body) {
-    return this.repo.cats.update(id, body);
+  update({ id }, body, userId) {
+    return this.repo.cats.update(id, body, userId);
   }
 
-  updateStatus({ id }, body) {
-    return this.repo.cats.updateStatus(id, body);
+  updateStatus({ id }, body, userId) {
+    return this.repo.cats.updateStatus(id, body, userId);
   }
 
-  remove({ id }) {
-    return this.repo.cats.remove(id);
+  remove({ id }, userId) {
+    return this.repo.cats.remove(id, userId);
   }
 }
 

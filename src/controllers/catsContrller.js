@@ -3,10 +3,12 @@ const { CatsService } = require("../services");
 
 const catsService = new CatsService();
 
+// в guard на каждом req добавил пользователя! req.user = user;
 const getAll = async (req, res, next) => {
   // почему не пишет async ?
   try {
-    const cats = await catsService.getAll();
+    const userId = req.user.id;
+    const cats = await catsService.getAll(userId);
     res.status(HttpCode.OK).json({
       status: "success",
       code: HttpCode.OK,
@@ -21,7 +23,8 @@ const getAll = async (req, res, next) => {
 
 const getById = async (req, res, next) => {
   try {
-    const cat = await catsService.getById(req.params);
+    const userId = req.user.id;
+    const cat = await catsService.getById(req.params, userId);
     if (cat) {
       return res.status(HttpCode.OK).json({
         status: "success",
@@ -46,7 +49,8 @@ const getById = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const cat = await catsService.create(req.body);
+    const userId = req.user.id;
+    const cat = await catsService.create({ ...req.body, owner: userId });
     res.status(HttpCode.CREATED).json({
       status: "success",
       code: HttpCode.CREATED,
@@ -61,7 +65,8 @@ const create = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    const cat = await catsService.update(req.params, req.body);
+    const userId = req.user.id;
+    const cat = await catsService.update(req.params, req.body, userId);
     if (cat) {
       return res.status(HttpCode.OK).json({
         status: "success",
@@ -86,7 +91,8 @@ const update = async (req, res, next) => {
 
 const updateStatus = async (req, res, next) => {
   try {
-    const cat = await catsService.update(req.params, req.body);
+    const userId = req.user.id;
+    const cat = await catsService.update(req.params, req.body, userId);
     if (cat) {
       return res.status(HttpCode.OK).json({
         status: "success",
@@ -111,7 +117,8 @@ const updateStatus = async (req, res, next) => {
 
 const remove = async (req, res, next) => {
   try {
-    const cat = await catsService.remove(req.params);
+    const userId = req.user.id;
+    const cat = await catsService.remove(req.params, userId);
     if (cat) {
       return res.status(HttpCode.OK).json({
         status: "success",

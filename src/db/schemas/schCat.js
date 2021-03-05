@@ -23,7 +23,7 @@ const catSchema = new Schema(
       set: (data) => (!data ? [] : data),
     },
     owner: {
-      type: mogoose.schemaTypes.ObjectId,
+      type: mongoose.Types.ObjectId,
       ref: "user",
     },
   },

@@ -13,7 +13,8 @@ npm i bcryptjs jsonwebtoken passport passport-jwt
 - [bcryptjs](https://www.npmjs.com/package/bcryptjs)
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 - [passport](https://www.npmjs.com/package/passport)
-- [passport-jwt](https://www.npmjs.com/package/passport-jwt)
+- [passport-jwt (npm)](https://www.npmjs.com/package/passport-jwt)
+- [passport-jwt (official)](http://www.passportjs.org/packages/passport-jwt/)
 
 ---
 
@@ -102,6 +103,34 @@ userSchema.methods.validPassword = async function (password) {
 
 const User = model("user", userSchema);
 module.exports = User;
+```
+
+---
+
+Как JOIN
+
+```js
+
+  .populate({
+      path: "owner", // по полю owner
+      select: "name email sex", // и сам SELECT name, email, sex
+    });
+
+  async getAll(userId) {
+    const results = await Cat.find({ owner: userId }).populate({
+      path: "owner",
+      select: "name email sex",
+    });
+    return results;
+  }
+```
+
+---
+
+Так можно вытаскивать Heders
+
+```js
+const [, token] = req.get("Authorization").split(" ");
 ```
 
 ---
