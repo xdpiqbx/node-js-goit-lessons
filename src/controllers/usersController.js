@@ -8,6 +8,7 @@ const registration = async (req, res, next) => {
   const { name, email, password, sex } = req.body;
   const user = await usersService.findByEmail(email);
   if (user) {
+    // если нашел по email значит он есть или раньше рег под этим email
     return next({
       status: HttpCode.CONFLICT,
       data: "Conflict",
@@ -55,7 +56,9 @@ const login = async (req, res, next) => {
 const logout = async (req, res, next) => {
   const userId = req.user.id;
   await authService.logout(userId);
-  return res.status(HttpCode.NO_CONTENT).json({ message: "Nothing" });
+  return res
+    .status(HttpCode.NO_CONTENT)
+    .json({ status: "success", code: HttpCode.NO_CONTENT, message: "Nothing" });
 };
 
 module.exports = {

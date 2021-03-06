@@ -50,7 +50,7 @@ const getById = async (req, res, next) => {
 const create = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const cat = await catsService.create({ ...req.body, owner: userId });
+    const cat = await catsService.create(req.body, userId);
     res.status(HttpCode.CREATED).json({
       status: "success",
       code: HttpCode.CREATED,

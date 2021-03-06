@@ -9,10 +9,12 @@ const { ErrroHandler } = require("../helpers/errorHandler");
 const Cat = require("../db/schemas/schCat");
 
 class CatsRepo {
-  constructor() {}
+  constructor() {
+    this.model = Cat;
+  }
 
   async getAll(userId) {
-    const results = await Cat.find({ owner: userId }).populate({
+    const results = await this.model.find({ owner: userId }).populate({
       path: "owner",
       select: "name email sex -_id",
     });
@@ -21,10 +23,12 @@ class CatsRepo {
 
   async getById(id, userId) {
     try {
-      const result = await Cat.findOne({ _id: id, owner: userId }).populate({
-        path: "owner",
-        select: "name email sex -_id",
-      });
+      const result = await this.model
+        .findOne({ _id: id, owner: userId })
+        .populate({
+          path: "owner",
+          select: "name email sex -_id",
+        });
       return result;
     } catch (error) {
       error.status = 400;
@@ -33,13 +37,13 @@ class CatsRepo {
     }
   }
 
-  async create(body) {
-    const result = Cat.create(body);
+  async create(body, userId) {
+    const result = this.model.create({ ...body, owner: userId });
     return result;
   }
 
   async update(id, body, userId) {
-    const result = await Cat.findByIdAndUpdate(
+    const result = await this.model.findOneAndUpdate(
       { _id: id, owner: userId },
       { ...body },
       { new: true } // чтоб не возвращал предидущую запись
@@ -52,7 +56,7 @@ class CatsRepo {
   }
 
   async remove(id, userId) {
-    const result = await Cat.findByIdAndRemove({
+    const result = await this.model.findByIdAndRemove({
       _id: id,
       owner: userId,
     });

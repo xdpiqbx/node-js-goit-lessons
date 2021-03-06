@@ -23,8 +23,10 @@ const catSchema = new Schema(
       set: (data) => (!data ? [] : data),
     },
     owner: {
-      type: mongoose.Types.ObjectId,
+      // type: mongoose.Types.ObjectId,
+      type: mongoose.SchemaTypes.ObjectId,
       ref: "user",
+      // "user" - должно совпадать с "user" в const User = model("user", userSchema);
     },
   },
   {

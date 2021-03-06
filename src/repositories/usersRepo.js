@@ -28,7 +28,7 @@ class UsersRepo {
   }
 
   async create(body) {
-    const user = this.model(body);
+    const user = new this.model(body);
     return user.save();
     //В схеме стоит хук на save - userSchema.pre("save", async function (next)...
   }

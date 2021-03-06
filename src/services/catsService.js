@@ -18,8 +18,8 @@ class CatsService {
     return this.repo.cats.getById(id, userId);
   }
 
-  create(body) {
-    return this.repo.cats.create(body);
+  create(body, userId) {
+    return this.repo.cats.create(body, userId);
   }
 
   update({ id }, body, userId) {

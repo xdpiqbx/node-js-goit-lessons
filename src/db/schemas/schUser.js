@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-SALT_FACTOR = 6;
+const SALT_FACTOR = 6;
 const { Schema, model } = mongoose;
 
 const { Sex } = require("../../helpers/constants");
@@ -44,7 +44,10 @@ const userSchema = new Schema(
   }
 );
 
-// hook .pre
+// hook .pre и есть .post (перед и после чего-то)
+// .pre("save" - перед сохранением чтото должно быть
+// в репозитории user.save();
+// перед сохранением в базу пароль будет превращён в хеш
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(
@@ -59,4 +62,5 @@ userSchema.methods.validPassword = async function (password) {
 };
 
 const User = model("user", userSchema);
+// "user" - должно совпадать с ref: "user" в схеме кота
 module.exports = User;

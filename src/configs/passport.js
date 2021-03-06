@@ -26,3 +26,5 @@ passport.use(
     }
   })
 );
+
+// passport.use перехватывает токен
