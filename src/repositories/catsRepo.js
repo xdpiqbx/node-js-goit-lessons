@@ -1,10 +1,6 @@
 //https://youtu.be/ydNH8HvjeKI?t=6428
 
-const e = require("cors");
-const { ObjectID } = require("mongodb");
-
 const { HttpCode } = require("../helpers/constants");
-const { ErrroHandler } = require("../helpers/errorHandler");
 
 const Cat = require("../db/schemas/schCat");
 
@@ -31,7 +27,7 @@ class CatsRepo {
         });
       return result;
     } catch (error) {
-      error.status = 400;
+      error.status = HttpCode.BAD_REQUEST;
       error.data = "Bad request";
       throw error;
     }

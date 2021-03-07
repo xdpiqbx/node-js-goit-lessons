@@ -1,13 +1,9 @@
 const { CatsRepo } = require("../repositories");
-const db = require("../db");
 class CatsService {
   constructor() {
-    process.nextTick(async () => {
-      const client = await db;
-      this.repo = {
-        cats: new CatsRepo(client),
-      };
-    });
+    this.repo = {
+      cats: new CatsRepo(),
+    };
   }
 
   getAll(userId) {

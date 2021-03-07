@@ -1,5 +1,4 @@
 const { UsersRepo } = require("../repositories");
-const db = require("../db");
 
 class UsersService {
   constructor() {

@@ -14,31 +14,30 @@ const schemaUpdateCat = Joi.object({
 });
 
 const schemaUpdateStatusCat = Joi.object({
-  isVaccinated: Joi.boolean().required()
+  isVaccinated: Joi.boolean().required(),
 });
 
-
 const validate = (schema, body, next) => {
-  const { error } = schema.validate(body)
-  if(error){
-    const [{message}] = error.details
+  const { error } = schema.validate(body);
+  if (error) {
+    const [{ message }] = error.details;
     console.log(error.details);
     return next({
       status: HttpCode.BAD_REQUEST,
       code: HttpCode.BAD_REQUEST,
-      message: `Field: ${message.replace(/"/g, '')}`,
-      data: 'Bad request'
-    })
+      message: `Field: ${message.replace(/"/g, "")}`,
+      data: "Bad request",
+    });
   }
-  next()
-}
+  next();
+};
 
 module.exports.validateCreateCat = (req, res, next) => {
-  return validate(schemaCreateCat, req.body, next)
-}
+  return validate(schemaCreateCat, req.body, next);
+};
 module.exports.validateUpdateCat = (req, res, next) => {
-  return validate(schemaUpdateCat, req.body, next)
-}
+  return validate(schemaUpdateCat, req.body, next);
+};
 module.exports.validateUpdateStatusCat = (req, res, next) => {
-  return validate(schemaUpdateStatusCat, req.body, next)
-}
+  return validate(schemaUpdateStatusCat, req.body, next);
+};

@@ -1,18 +1,9 @@
 const { UsersRepo } = require("../repositories");
-const db = require("../db");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 class AuthService {
-  // constructor() {
-  //   process.nextTick(async () => {
-  //     const client = await db;
-  //     this.repo = {
-  //       users: new UsersRepo(client),
-  //     };
-  //   });
-  // }
   constructor() {
     this.repo = {
       users: new UsersRepo(),
