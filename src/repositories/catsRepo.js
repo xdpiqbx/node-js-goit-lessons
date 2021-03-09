@@ -1,5 +1,3 @@
-//https://youtu.be/ydNH8HvjeKI?t=6428
-
 const { HttpCode } = require("../helpers/constants");
 
 const Cat = require("../db/schemas/schCat");
