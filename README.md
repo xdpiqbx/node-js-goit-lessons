@@ -1,6 +1,168 @@
 # [node-js-goit-lessons](https://youtu.be/jwX1dIC--mM?t=72)
 
-## [Node.js 20] Занятие 6. REST API. MongoDB и Mongoose. (18.11)
+## [Node.js 20] Занятие 7. Аутентификация. 23.11
+
+---
+
+```npm
+npm i bcryptjs jsonwebtoken passport passport-jwt
+```
+
+---
+
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs)
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [passport](https://www.npmjs.com/package/passport)
+- [passport-jwt (npm)](https://www.npmjs.com/package/passport-jwt)
+- [passport-jwt (official)](http://www.passportjs.org/packages/passport-jwt/)
+
+---
+
+[jwt.io](https://jwt.io/)
+
+[debugger](https://jwt.io/#debugger-io)
+
+```jwt
+Encoded
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+```
+
+```jwt
+Decoded
+
+HEADER:ALGORITHM & TOKEN TYPE
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+
+PAYLOAD:DATA
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "iat": 1516239022
+}
+
+VERIFY SIGNATURE
+HMACSHA256(
+  base64UrlEncode(header) + "." + base64UrlEncode(payload),
+  secret-word
+)
+```
+
+---
+
+```js
+schCat.js
+
+const catSchema = new Schema(
+  {
+...
+    owner: {
+      type: mogoose.schemaTypes.ObjectId,
+      ref: "user",
+    },
+  },
+...
+);
+```
+
+---
+
+```js
+schUser.js;
+
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+SALT_FACTOR = 6;
+const { Schema, model } = mongoose;
+
+const { Sex } = require("../../helpers/constants");
+
+const userSchema = new Schema(
+  {
+    name: {
+      type: String,
+      minlength: 3,
+      default: "Guest",
+    },
+    sex: {
+      type: String,
+      enum: {
+        values: [Sex.MALE, Sex.FEMALE, Sex.NONE],
+        message: "This gender isn't allowed",
+      },
+      default: Sex.NONE,
+    },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+      validate(value) {
+        const re = /\S+@\S+\.\S+/;
+        return re.test(String(value).toLowerCase());
+      },
+    },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+    },
+    token: {
+      type: String,
+    },
+  },
+  {
+    versionKey: false,
+    timestamps: true, //createdAt and updatedAt
+  }
+);
+
+// hook .pre
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  this.password = await bcrypt.hash(
+    this.password,
+    bcrypt.genSaltSync(SALT_FACTOR)
+  );
+  next();
+});
+
+userSchema.methods.validPassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
+const User = model("user", userSchema);
+module.exports = User;
+```
+
+---
+
+Как JOIN
+
+```js
+
+  .populate({
+      path: "owner", // по полю owner
+      select: "name email sex", // и сам SELECT name, email, sex
+    });
+
+  async getAll(userId) {
+    const results = await Cat.find({ owner: userId }).populate({
+      path: "owner",
+      select: "name email sex",
+    });
+    return results;
+  }
+```
+
+---
+
+Так можно вытаскивать Heders
+
+```js
+const [, token] = req.get("Authorization").split(" ");
+```
 
 ---
 
