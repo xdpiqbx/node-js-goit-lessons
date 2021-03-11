@@ -1,6 +1,103 @@
 # [node-js-goit-lessons](https://youtu.be/jwX1dIC--mM?t=72)
 
-## [Node.js 20] Занятие 7. Аутентификация. 23.11
+## [Node.js 20] Занятие 8. Аутентификация. (25.11)
+
+---
+
+```npm
+npm i mongoose-paginate-v2
+```
+
+- [mongoose-paginate-v2](https://www.npmjs.com/package/mongoose-paginate-v2)
+
+В схеме кота подключаем
+
+```js
+const mongoosePaginate = require("mongoose-paginate-v2");
+const catSchema = new Schema(
+.....
+)
+catSchema.plugin(mongoosePaginate);
+const Cat = model("cat", catSchema);
+module.exports = Cat;
+```
+
+Из контроллера пробросить - req.query до самого репозитория и уже в репозитории:
+
+```js
+Всместо;
+const results = await this.model.find({ owner: userId }).populate({
+  path: "owner",
+  select: "name email sex -_id",
+});
+
+Писать;
+const results = await this.model.paginate({}, { limit, offset });
+```
+
+И в ответ будет приходить
+
+```json
+{
+    "status": "success",
+    "code": 200,
+    "data": {
+        "cats": {
+            "docs": [
+                {
+                    "isVaccinated": true,
+                    "features": [],
+                    "_id": "603617471b0e668735f6fd14",
+                    "name": "Simon",
+                    "age": 11
+                },
+                .......
+            ],
+            "totalDocs": 8,
+            "offset": 0,
+            "limit": 5,
+            "totalPages": 2,
+            "page": 1,
+            "pagingCounter": 1,
+            "hasPrevPage": false,
+            "hasNextPage": true,
+            "prevPage": null,
+            "nextPage": 2
+        }
+    }
+}
+```
+
+И так этим всем управлять
+
+```
+Было
+http://localhost:3000/api/cats/
+
+Стало
+http://localhost:3000/api/cats?limit=2&offset=3
+
+offset - define skip position
+```
+
+---
+
+Немного безопасности
+
+- app.use(express.json({limit: 10000}));
+- [Production Best Practices: Security](https://expressjs.com/en/advanced/best-practice-security.html)
+
+  - [Use Helmet](https://expressjs.com/en/advanced/best-practice-security.html#use-helmet)
+
+    ```text
+    npm install --save helmet
+    ```
+
+- [express-rate-limit](https://www.npmjs.com/package/express-rate-limit)
+
+  ```text
+  npm i express-rate-limit
+  ```
 
 ---
 

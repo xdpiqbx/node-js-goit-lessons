@@ -3,6 +3,7 @@ const controllerUsers = require("../../controllers/usersController");
 const router = express.Router();
 
 const guard = require("../../helpers/guard");
+const { createAccountLimiter } = require("../../helpers/rateLimitHelper");
 
 // const {
 //   validateCreateCat,
@@ -11,7 +12,7 @@ const guard = require("../../helpers/guard");
 // } = require('../../validation/catsValidation')
 
 router
-  .post("/registration", controllerUsers.registration)
+  .post("/registration", createAccountLimiter, controllerUsers.registration)
   .post("/login", controllerUsers.login)
   .post("/logout", guard, controllerUsers.logout);
 

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const mongoosePaginate = require("mongoose-paginate-v2");
 const { Schema, model } = mongoose;
 
 const catSchema = new Schema(
@@ -38,6 +38,8 @@ const catSchema = new Schema(
 catSchema.virtual("nameAge").get(function () {
   return this.name + " " + this.age;
 });
+
+catSchema.plugin(mongoosePaginate);
 
 const Cat = model("cat", catSchema);
 module.exports = Cat;
