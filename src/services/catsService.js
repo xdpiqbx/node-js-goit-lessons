@@ -6,8 +6,8 @@ class CatsService {
     };
   }
 
-  getAll(userId) {
-    return this.repo.cats.getAll(userId);
+  getAll(userId, query) {
+    return this.repo.cats.getAll(userId, query);
   }
 
   getById({ id }, userId) {

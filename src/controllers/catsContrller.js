@@ -5,15 +5,14 @@ const catsService = new CatsService();
 
 // в guard на каждом req добавил пользователя! req.user = user;
 const getAll = async (req, res, next) => {
-  // почему не пишет async ?
   try {
     const userId = req.user.id;
-    const cats = await catsService.getAll(userId);
+    const cats = await catsService.getAll(userId, req.query);
     res.status(HttpCode.OK).json({
       status: "success",
       code: HttpCode.OK,
       data: {
-        cats,
+        ...cats,
       },
     });
   } catch (e) {

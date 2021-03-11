@@ -7,12 +7,31 @@ class CatsRepo {
     this.model = Cat;
   }
 
-  async getAll(userId) {
-    const results = await this.model.find({ owner: userId }).populate({
-      path: "owner",
-      select: "name email sex -_id",
-    });
-    return results;
+  // async getAll(userId, query) {
+  async getAll(userId, { limit = 5, offset = 0, sortBy, sortByDesc, filter }) {
+    const { docs: cats, totalDocs: total } = await this.model.paginate(
+      { owner: userId },
+      {
+        limit,
+        offset,
+        sort: {
+          ...(sortBy ? { [`${sortBy}`]: 1 } : {}),
+          ...(sortByDesc ? { [`${sortBy}`]: -1 } : {}),
+          /// http://localhost:3000/api/cats?sortByDesc=name
+        },
+        select: filter ? filter.split("|").join(" ") : "",
+        //http://localhost:3000/api/cats?filter=name|age|owner&sortBy=name
+        populate: { path: "owner", select: "name -_id" },
+      }
+    );
+
+    //https://youtu.be/Qc3m5hnD0nw?t=2317
+
+    // const results = await this.model.find({ owner: userId }).populate({
+    //   path: "owner",
+    //   select: "name email sex -_id",
+    // });
+    return { cats, total, limit: Number(limit), offset: Number(offset) };
   }
 
   async getById(id, userId) {
