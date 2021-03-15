@@ -21,6 +21,10 @@ class UsersService {
     const data = await this.repo.users.findById(id);
     return data;
   }
+
+  async updateAvatar(id, avatarUrl, imgIdCloud) {
+    await this.repo.users.updateAvatar(id, avatarUrl, imgIdCloud);
+  }
 }
 
 module.exports = UsersService;

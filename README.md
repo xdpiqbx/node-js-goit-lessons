@@ -1,6 +1,40 @@
 # [node-js-goit-lessons](https://youtu.be/jwX1dIC--mM?t=72)
 
-## [Node.js 20] Занятие 8. Аутентификация. (25.11)
+## 08.03.21 Node21+22. Занятие 9 Работа с изображениями Тестирование
+
+---
+
+[Multer](https://www.npmjs.com/package/multer) is a node.js middleware for handling multipart/form-data, which is primarily used for uploading files. It is written on top of busboy for maximum efficiency.
+
+```text
+npm i multer
+```
+
+---
+
+[Gravatar NPM](https://www.npmjs.com/package/gravatar) A library to generate Gravatar URLs in Node.js Based on gravatar specs
+
+[What-is-gravatar](http://en.gravatar.com/support/what-is-gravatar/) Blog
+
+```text
+npm i gravatar
+```
+
+---
+
+[Jimp](https://www.npmjs.com/package/jimp) - The "JavaScript Image Manipulation Program" :-)
+
+```text
+npm i jimp
+```
+
+---
+
+[Cloudinary](https://cloudinary.com/documentation/node_integration#node_getting_started_guide) manage and deliver engaging experiences at scale
+
+```text
+npm install cloudinary
+```
 
 ---
 
