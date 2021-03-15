@@ -36,6 +36,10 @@ class UsersRepo {
   async updateToken(id, token) {
     await this.model.updateOne({ _id: id }, { token });
   }
+
+  async updateAvatar(id, avatar, imgIdCloud) {
+    await this.model.updateOne({ _id: id }, { avatar, imgIdCloud });
+  }
 }
 
 module.exports = UsersRepo;

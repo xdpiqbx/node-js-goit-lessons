@@ -1,17 +1,26 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
+const path = require("path");
 const rateLimit = require("express-rate-limit");
 const logger = require("morgan");
 const { apilimit, jsonlimit } = require("./configs/rate-limit.json");
 const { HttpCode } = require("./helpers/constants");
 const { ErrroHandler } = require("./helpers/errorHandler");
+require("dotenv").config();
+
 const routerCats = require("./api/cats");
 const routerUsers = require("./api/users");
 
 const app = express();
 
+const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+
+const AVATARS_OF_USERS = process.env.AVATARS_OF_USERS;
+app.use(express.static(path.join(process.cwd(), AVATARS_OF_USERS)));
+
 app.use(helmet());
+app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json({ limit: jsonlimit }));
 
@@ -40,7 +49,7 @@ app.use((req, res, next) => {
   res.status(HttpCode.NOT_FOUND).json({
     status: "error",
     code: HttpCode.NOT_FOUND,
-    message: `Use api onroutes ${req.baseUrl}/api/cats`,
+    message: `Resorse [${req.url}] not found`,
     data: `Not Found`,
   });
 });

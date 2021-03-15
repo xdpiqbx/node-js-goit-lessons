@@ -12,7 +12,8 @@ class AuthService {
 
   async login({ email, password }) {
     const user = await this.repo.users.findByEmail(email);
-    if (!user || !user.validPassword(password)) {
+    const isValidPassword = await user?.validPassword(password);
+    if (!user || !isValidPassword) {
       //userSchema.methods.validPassword = ....
       return null;
     }
